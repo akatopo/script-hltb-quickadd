@@ -1,4 +1,4 @@
-/* globals Notice, request, requestUrl, moment */
+/* globals Notice  */
 
 import { HowLongToBeatService } from 'howlongtobeat';
 import { source } from 'common-tags';
@@ -22,8 +22,8 @@ module.exports = {
   },
 };
 
-async function start(params, settings) {
-  ({ app, obsidian, quickAddApi } = params);
+async function start(params /* , settings */) {
+  ({ app, /* obsidian, */ quickAddApi } = params);
 
   const activeFile = app.workspace.getActiveFile();
   if (!activeFile) {
