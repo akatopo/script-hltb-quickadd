@@ -10,7 +10,7 @@ This script allows you to easily insert how long to beat properties and a comple
 
 Uses the [unofficial HLTB API](https://github.com/akatopo/howlongtobeat).
 
-> [!WARNING] Disclaimer
+> [!WARNING]
 > **Please never run a script that you don't understand. I cannot and will not be liable for any damage caused by the use of this script. Regularly make a backup of your Obsidian's vault!**
 
 ## Installation
