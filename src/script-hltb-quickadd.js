@@ -33,7 +33,7 @@ module.exports = {
     options: {
       [useTitleFromFrontMatterLabel]: {
         type: 'dropdown',
-        defaultValue: useTitleFromFrontMatterOpts[0],
+        defaultValue: useTitleAndSearch,
         options: useTitleFromFrontMatterOpts,
         description: '',
       },

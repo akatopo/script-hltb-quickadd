@@ -29,7 +29,7 @@ Uses the [unofficial HLTB API](https://github.com/akatopo/howlongtobeat).
 
 ## Usage
 
-The script will automatically use the `title` property from a note (if present) to search HLTB, otherwise it will ask for a search string before displaying the search results. If successful, [HLTB properties](#property-definitions) will be added to the note's frontmatter and a [table](#example-markdown-table-output) will be added at the bottom of the note.
+The script will by default use the `title` property from a note (if present) to automatically search. This can be changed from the macro options to either display a prompt prefilled with the `title` property from a note (if present) before searching, or to just display an empty prompt. If the search is successful a picker with the search results will be displayed if there are more than one results to choose the desired title. Afterwards [HLTB properties](#property-definitions) will be added to the note's frontmatter and a [table](#example-markdown-table-output) will be added at the bottom of the note.
 
 ## Property definitions
 
