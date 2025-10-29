@@ -1,6 +1,6 @@
 {
   "name": "script-hltb-quickadd",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "scripts": {
     "watch": "rollup -c --watch",
     "build": "rollup -c",
