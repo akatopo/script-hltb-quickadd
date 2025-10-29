@@ -7,8 +7,20 @@ const hltbService = new HowLongToBeatService();
 const notice = (msg) => new Notice(msg, 5000);
 const noticeAndThrow = (msg, cause) => {
   notice(msg);
+  console.error(cause ?? msg);
   throw new Error(msg, { cause });
 };
+
+const useTitleFromFrontMatterLabel = 'Search behavior';
+const useTitleAndPrompt =
+  'Use title property (if available) and display prompt';
+const useTitleAndSearch = 'Use title property (if available) and search';
+const justDisplayPrompt = 'Just display prompt';
+const useTitleFromFrontMatterOpts = [
+  useTitleAndPrompt,
+  useTitleAndSearch,
+  justDisplayPrompt,
+];
 
 let app;
 let quickAddApi;
@@ -18,12 +30,21 @@ module.exports = {
   settings: {
     name: 'HLTB Script',
     author: 'akatopo',
-    options: {},
+    options: {
+      [useTitleFromFrontMatterLabel]: {
+        type: 'dropdown',
+        defaultValue: useTitleFromFrontMatterOpts[0],
+        options: useTitleFromFrontMatterOpts,
+        description: '',
+      },
+    },
   },
 };
 
-async function start(params /* , settings */) {
+async function start(params, settings) {
   ({ app, /* obsidian, */ quickAddApi } = params);
+
+  const useTitleFromFrontMatter = settings[useTitleFromFrontMatterLabel];
 
   const activeFile = app.workspace.getActiveFile();
   if (!activeFile) {
@@ -32,12 +53,14 @@ async function start(params /* , settings */) {
   }
 
   let titleFromFrontmatter;
-  try {
-    await app.fileManager.processFrontMatter(activeFile, (fm) => {
-      titleFromFrontmatter = fm.title;
-    });
-  } catch (error) {
-    // ignored
+  if (useTitleFromFrontMatter !== justDisplayPrompt) {
+    try {
+      await app.fileManager.processFrontMatter(activeFile, (fm) => {
+        titleFromFrontmatter = fm.title;
+      });
+    } catch (error) {
+      // ignored
+    }
   }
   const queryPlaceholders = ["Baldur's Gate 3", 'Portal', 'Melvor Idle'];
   const queryPlaceholder =
@@ -46,12 +69,13 @@ async function start(params /* , settings */) {
     ];
 
   const query =
-    titleFromFrontmatter ??
-    (await quickAddApi.inputPrompt(
-      'Enter video game title: ',
-      `ex. ${queryPlaceholder}`,
-      '',
-    ));
+    useTitleFromFrontMatter === useTitleAndSearch && titleFromFrontmatter
+      ? titleFromFrontmatter
+      : await quickAddApi.inputPrompt(
+          'Enter video game title: ',
+          `ex. ${queryPlaceholder}`,
+          titleFromFrontmatter ?? '',
+        );
 
   if (!query) {
     notice('No query entered. Aborting');
