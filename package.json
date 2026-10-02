@@ -16,6 +16,6 @@
   },
   "dependencies": {
     "common-tags": "^1.8.2",
-    "howlongtobeat": "github:akatopo/howlongtobeat#39ee443f1dc83014519cb509580c6b864b70872a"
+    "howlongtobeat": "github:akatopo/howlongtobeat#6ea3a26deb9a9570b8af94388bfd5f8dd7fd8936"
   }
 }
